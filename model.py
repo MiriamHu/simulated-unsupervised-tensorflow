@@ -70,6 +70,8 @@ class Model(object):
         self.resized_x = tf.cast(self.x, tf.float32)
         self.resized_y = tf.cast(self.y, tf.float32)
 
+        print("resized_x", self.resized_x.shape)
+
         self.normalized_x = normalize(self.resized_x)
         self.normalized_y = normalize(self.resized_y)
 
