@@ -33,7 +33,7 @@ class DataLoader(object):
         self.synthetic_data_dims = list(imread(self.synthetic_data_paths[0]).shape) + [1]
 
         self.real_data_paths = np.array(glob(os.path.join(self.real_data_path, "*.jpg")))
-        self.real_data_dims = list(imread(self.real_data_paths[0]).shape) + [1]
+        self.real_data_dims = list(imread(self.real_data_paths[0]).shape[:2]) + [1,1]
 
         self.synthetic_data_paths.sort()
 
