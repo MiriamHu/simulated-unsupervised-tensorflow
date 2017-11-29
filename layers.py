@@ -43,6 +43,7 @@ def image_from_paths(paths, shape, is_grayscale=True, seed=None, jpg=True):
 def resnet_block(
         inputs, scope, num_outputs=64, kernel_size=[3, 3],
         stride=[1, 1], padding="SAME", layer_dict={}):
+    print(inputs.shape)
     with tf.variable_scope(scope):
         layer = conv2d(
             inputs, num_outputs, kernel_size, stride,
