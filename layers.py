@@ -10,7 +10,7 @@ def int_shape(x):
 
 
 def normalize(layer):
-    return tf.div(layer, tf.constant(127.5, dtype=tf.float32)) - 1
+    return tf.div(layer, tf.constant(127.5, dtype=tf.float32)) - 1.
     # return layer / 127.5 - 1.
 
 
