@@ -8,7 +8,7 @@ from utils import imread
 __author__ = 'mhuijser'
 
 
-def create_tree(config, data_path, sample_path, rng):
+def create_tree(config, data_path, rng):
     if not os.path.exists(data_path):
         print('creating folder', data_path)
         os.makedirs(data_path)
@@ -23,12 +23,11 @@ class DataLoader(object):
         self.rng = np.random.RandomState(1) if rng is None else rng
 
         self.data_path = os.path.join(config.data_dir, 'our')
-        self.sample_path = os.path.join(self.data_path, config.sample_dir)
+        self.real_data_path = os.path.join(self.data_path, config.real_image_dir)
         self.batch_size = config.batch_size
         self.debug = config.debug
 
-        synthetic_image_path = create_tree(config, self.data_path, self.sample_path, rng)
-        self.real_data_path = self.sample_path
+        synthetic_image_path = create_tree(config, self.data_path, rng)
 
         self.synthetic_data_paths = np.array(glob(os.path.join(synthetic_image_path, '*.jpg')))
         self.synthetic_data_dims = list(imread(self.synthetic_data_paths[0]).shape) + [1]
