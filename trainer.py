@@ -112,7 +112,7 @@ class Trainer(object):
             feed_dict = {
                 self.model.synthetic_batch_size: self.data_loader.batch_size // 2,
                 self.model.R_x_history: self.history_buffer.sample(),
-                self.model.y: self.data_loader.next(),
+                self.model.y: tf.expand_dims(self.data_loader.next(), axis=0),
             }
             res = self.model.train_discrim(
                 self.sess, feed_dict, self._summary_writer, with_history=True, with_output=False)
