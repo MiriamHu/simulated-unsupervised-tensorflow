@@ -35,7 +35,7 @@ def maybe_download_and_extract(
     if not os.path.exists(filepath):
       def _progress(count, block_size, total_size):
         sys.stdout.write('\r>> Downloading %s %.1f%%' % (filename,
-          float(count * block_size) / float(total_size) * 100.0))
+          float(count * block_size) // float(total_size) * 100.0))
         sys.stdout.flush()
 
       filepath, _ = urllib.request.urlretrieve(url, filepath, _progress)
@@ -48,7 +48,7 @@ def maybe_preprocess(config, data_path, sample_path=None):
     max_synthetic_num = None
   else:
     max_synthetic_num = config.max_synthetic_num
-  
+
   # MPIIGaze dataset
   base_path = os.path.join(data_path, '{}/Data/Normalized'.format(config.real_image_dir))
   npz_path = os.path.join(data_path, DATA_FNAME)
@@ -111,7 +111,7 @@ def maybe_preprocess(config, data_path, sample_path=None):
             x_min, x_max = int(min(j[key][:,0])), int(max(j[key][:,0]))
             y_min, y_max = int(min(j[key][:,1])), int(max(j[key][:,1]))
 
-            x_center, y_center = (x_min + x_max)/2, (y_min + y_max)/2
+            x_center, y_center = (x_min + x_max)//2, (y_min + y_max)//2
 
             cropped_img = img[y_center-42: y_center+42, x_center-70:x_center+70]
             img_path = jpg_path.replace(".jpg", "_cropped.png")

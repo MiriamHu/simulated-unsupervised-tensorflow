@@ -61,7 +61,7 @@ def img_tile(imgs, aspect_ratio=1.0, tile_shape=None, border=1,
     img_aspect_ratio = img_shape[1] / float(img_shape[0])
     aspect_ratio *= img_aspect_ratio
     tile_height = int(np.ceil(np.sqrt(n_imgs * aspect_ratio)))
-    tile_width = int(np.ceil(np.sqrt(n_imgs / aspect_ratio)))
+    tile_width = int(np.ceil(np.sqrt(n_imgs // aspect_ratio)))
     grid_shape = np.array((tile_height, tile_width))
   else:
     assert len(tile_shape) == 2

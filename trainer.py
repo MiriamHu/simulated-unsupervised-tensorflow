@@ -3,7 +3,7 @@ import numpy as np
 from tqdm import trange
 import tensorflow as tf
 from tensorflow.contrib.framework.python.ops import arg_scope
-
+from functools import reduce
 from model import Model
 from buffer import Buffer
 import data.gaze_data as gaze_data
@@ -107,7 +107,7 @@ class Trainer(object):
 
     def train_discrim():
       feed_dict = {
-        self.model.synthetic_batch_size: self.data_loader.batch_size/2,
+        self.model.synthetic_batch_size: self.data_loader.batch_size//2,
         self.model.R_x_history: self.history_buffer.sample(),
         self.model.y: self.data_loader.next(),
       }
@@ -122,15 +122,15 @@ class Trainer(object):
       train_discrim()
 
     for step in trange(self.max_step, desc="Train both"):
-      for k in xrange(self.K_g):
+      for k in range(self.K_g):
         train_refiner(push_buffer=True)
 
-      for k in xrange(self.K_d):
+      for k in range(self.K_d):
         train_discrim()
 
   def test(self):
     batch_size = self.data_loader.batch_size
-    num_epoch = len(self.data_loader.synthetic_data_paths) / batch_size
+    num_epoch = len(self.data_loader.synthetic_data_paths) // batch_size
 
     for idx in trange(num_epoch, desc="Refine all synthetic images"):
       feed_dict = {
