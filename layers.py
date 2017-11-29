@@ -27,7 +27,7 @@ def image_from_paths(paths, shape, is_grayscale=True, seed=None, jpg=True):
     reader = tf.WholeFileReader()
     filename, data = reader.read(filename_queue)
     if jpg:
-        image = tf.image.decode_jpeg(data, channels=3)
+        image = tf.image.decode_jpeg(data, channels=3) # also outputs tf.uint8
     else:
         image = tf.image.decode_png(data, channels=3, dtype=tf.uint8)
     if is_grayscale:
