@@ -32,6 +32,8 @@ def image_from_paths(paths, shape, is_grayscale=False, seed=None, jpg=True):
         image = tf.image.decode_png(data, channels=3, dtype=tf.uint8)
     if is_grayscale:
         image = tf.image.rgb_to_grayscale(image)
+    image = tf.expand_dims(image, axis=-1)
+
     image.set_shape(shape)
     return filename, tf.to_float(image)
 
