@@ -143,7 +143,7 @@ class Trainer(object):
                 self.sess, feed_dict, None, with_output=True)
 
             for image, filename in zip(res['output'], res['filename']):
-                basename = os.path.basename(filename).replace("_cropped", "_refined")
+                basename = os.path.basename(filename).replace(".jpg", "_refined.jpg")
                 path = os.path.join(self.config.output_model_dir, basename)
                 imwrite(path, image[:, :, 0])
 
