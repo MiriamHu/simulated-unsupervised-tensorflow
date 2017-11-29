@@ -64,11 +64,12 @@ class Model(object):
             tf.float32, [None, None, None, self.input_channel], 'R_x_history')
 
         resize_dim = [self.input_height, self.input_width]
-        # self.resized_x = tf.image.resize_images(self.x, resize_dim)
-        # self.resized_y = tf.image.resize_images(self.y, resize_dim)
-        # self.resized_test_x = tf.image.resize_images(self.test_x, resize_dim)
-        self.resized_x = tf.cast(self.x, tf.float32)
-        self.resized_y = tf.cast(self.y, tf.float32)
+        print("self.x", self.x.shape)
+        self.resized_x = tf.image.resize_images(self.x, resize_dim)
+        self.resized_y = tf.image.resize_images(self.y, resize_dim)
+        self.resized_test_x = tf.image.resize_images(self.test_x, resize_dim)
+        # self.resized_x = tf.cast(self.x, tf.float32)
+        # self.resized_y = tf.cast(self.y, tf.float32)
 
         print("resized_x", self.resized_x.shape)
 
