@@ -23,7 +23,7 @@ def _update_dict(layer_dict, scope, layer):
     layer_dict[name] = layer
 
 
-def image_from_paths(paths, shape, is_grayscale=False, seed=None, jpg=True):
+def image_from_paths(paths, shape, is_grayscale=True, seed=None, jpg=True):
     filename_queue = tf.train.string_input_producer(list(paths), shuffle=False, seed=seed)
     reader = tf.WholeFileReader()
     filename, data = reader.read(filename_queue)
@@ -41,8 +41,8 @@ def image_from_paths(paths, shape, is_grayscale=False, seed=None, jpg=True):
 
 @add_arg_scope
 def resnet_block(
-        inputs, scope, num_outputs=64, kernel_size=[3, 3, 3],
-        stride=[1, 1, 1], padding="SAME", layer_dict={}):
+        inputs, scope, num_outputs=64, kernel_size=[3, 3],
+        stride=[1, 1], padding="SAME", layer_dict={}):
     with tf.variable_scope(scope):
         layer = conv2d(
             inputs, num_outputs, kernel_size, stride,
@@ -80,7 +80,7 @@ def conv2d(inputs, num_outputs, kernel_size, stride,
 
 
 @add_arg_scope
-def max_pool2d(inputs, kernel_size=[3, 3, 3], stride=[1, 1, 1],
+def max_pool2d(inputs, kernel_size=[3, 3], stride=[1, 1],
                layer_dict={}, scope=None, name="", **kargv):
     outputs = slim.max_pool2d(inputs, kernel_size, stride, **kargv)
     if name:
