@@ -83,9 +83,9 @@ class Trainer(object):
 
         sample_num = reduce(lambda x, y: x * y, self.config.sample_image_grid)
         idxs = self.rng.choice(len(self.data_loader.synthetic_data_paths), sample_num)
-        test_samples = np.stack(
+        test_samples = np.expand_dims(np.stack(
             [cv2.cvtColor( imread(path), cv2.COLOR_BGR2GRAY) for path in self.data_loader.synthetic_data_paths[idxs]]
-        )
+        ), -1)
         # test_samples = image_from_paths(self.data_loader.synthetic_data_paths[idxs], self.data_loader.synthetic_data_dims)
 
         def train_refiner(push_buffer=False):
