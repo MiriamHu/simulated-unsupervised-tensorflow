@@ -38,6 +38,7 @@ class Model(object):
         capacity = min_after_dequeue + 3 * self.batch_size
 
         self.synthetic_batch_size = tf.placeholder(tf.int32, [], "synthetic_batch_size")
+        print("synth data dim", self.data_loader.synthetic_data_dims)
         self.synthetic_filenames, self.synthetic_images = \
             image_from_paths(self.data_loader.synthetic_data_paths,
                              self.data_loader.synthetic_data_dims, seed=self.config.random_seed)
