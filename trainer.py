@@ -10,6 +10,7 @@ import data.gaze_data as gaze_data
 import data.hand_data as hand_data
 import data.our_data as our_data
 from utils import imwrite, imread, img_tile
+from layers import image_from_paths
 
 
 class Trainer(object):
@@ -81,10 +82,11 @@ class Trainer(object):
 
         sample_num = reduce(lambda x, y: x * y, self.config.sample_image_grid)
         idxs = self.rng.choice(len(self.data_loader.synthetic_data_paths), sample_num)
-        test_samples = np.expand_dims(np.stack(
-            [imread(path) for path in \
-             self.data_loader.synthetic_data_paths[idxs]]
-        ), -1)
+        # test_samples = np.expand_dims(np.stack(
+        #     [imread(path) for path in \
+        #      self.data_loader.synthetic_data_paths[idxs]]
+        # ), -1)
+        test_samples = image_from_paths(self.data_loader.synthetic_data_paths[idxs], self.data_loader.synthetic_data_dims)
 
         def train_refiner(push_buffer=False):
             feed_dict = {
