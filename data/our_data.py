@@ -4,6 +4,7 @@ from glob import glob
 
 from layers import image_from_paths
 from utils import imread
+import cv2
 
 __author__ = 'mhuijser'
 
@@ -88,7 +89,10 @@ class DataLoader(object):
         paths = self.real_data_paths[self.real_p: self.real_p + n]
         self.real_p += self.batch_size
 
-        real_filenames, real_data = image_from_paths(paths, self.real_data_dims)
+        # real_filenames, real_data = image_from_paths(paths, self.real_data_dims)
+        real_data = np.expand_dims(np.stack(
+            [cv2.cvtColor( imread(path), cv2.COLOR_BGR2GRAY) for path in paths]
+        ), -1)
         return real_data
 
     next = __next__
