@@ -33,7 +33,7 @@ def image_from_paths(paths, shape, is_grayscale=True, seed=None, jpg=True):
         image = tf.image.decode_png(data, channels=3, dtype=tf.uint8)
     if is_grayscale:
         image = tf.image.rgb_to_grayscale(image)
-    image = tf.expand_dims(image, axis=0)
+    # image = tf.expand_dims(image, axis=0)
     print("image", image.shape)
 
     image.set_shape(shape)
