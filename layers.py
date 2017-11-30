@@ -33,8 +33,6 @@ def image_from_paths(paths, shape, is_grayscale=True, seed=None, jpg=True):
         image = tf.image.decode_png(data, channels=3, dtype=tf.uint8)
     if is_grayscale:
         image = tf.image.rgb_to_grayscale(image)
-    # image = tf.expand_dims(image, axis=0)
-    print("image", image.shape)
 
     image.set_shape(shape)
     return filename, tf.to_float(image)
@@ -44,7 +42,6 @@ def image_from_paths(paths, shape, is_grayscale=True, seed=None, jpg=True):
 def resnet_block(
         inputs, scope, num_outputs=64, kernel_size=[3, 3],
         stride=[1, 1], padding="SAME", layer_dict={}):
-    print(inputs.shape)
     with tf.variable_scope(scope):
         layer = conv2d(
             inputs, num_outputs, kernel_size, stride,
