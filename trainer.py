@@ -148,7 +148,7 @@ class Trainer(object):
             for image, filename in zip(res['output'], res['filename']):
                 # basename = os.path.basename(filename).replace(".jpg", "_refined.jpg")
                 # path = os.path.join(self.config.output_model_dir, basename)
-                write_path = os.path.join(path, os.path.basename(filename))
+                write_path = os.path.join(path, "%d.jpg" % idx)
                 imwrite(write_path, image[:, :, 0])
 
     def _inject_summary(self, tag, feed_dict, step):
