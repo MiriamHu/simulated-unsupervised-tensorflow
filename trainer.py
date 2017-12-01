@@ -136,7 +136,8 @@ class Trainer(object):
     def test(self):
         batch_size = self.data_loader.batch_size
         num_epoch = len(self.data_loader.synthetic_data_paths) // batch_size
-
+        path = "tested-images"
+        os.mkdir(path)
         for idx in trange(num_epoch, desc="Refine all synthetic images"):
             feed_dict = {
                 self.model.synthetic_batch_size: batch_size,
@@ -145,9 +146,10 @@ class Trainer(object):
                 self.sess, feed_dict, None, with_output=True)
 
             for image, filename in zip(res['output'], res['filename']):
-                basename = os.path.basename(filename).replace(".jpg", "_refined.jpg")
-                path = os.path.join(self.config.output_model_dir, basename)
-                imwrite(path, image[:, :, 0])
+                # basename = os.path.basename(filename).replace(".jpg", "_refined.jpg")
+                # path = os.path.join(self.config.output_model_dir, basename)
+                write_path = os.path.join(path, os.path.basename(filename))
+                imwrite(write_path, image[:, :, 0])
 
     def _inject_summary(self, tag, feed_dict, step):
         summaries = self.sess.run(self.summary_ops[tag], feed_dict)
