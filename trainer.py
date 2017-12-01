@@ -145,11 +145,13 @@ class Trainer(object):
             res = self.model.test_refiner(
                 self.sess, feed_dict, None, with_output=True)
 
+            counter = 0
             for image, filename in zip(res['output'], res['filename']):
                 # basename = os.path.basename(filename).replace(".jpg", "_refined.jpg")
                 # path = os.path.join(self.config.output_model_dir, basename)
-                write_path = os.path.join(path, "%d.jpg" % idx)
+                write_path = os.path.join(path, "%d.jpg" % counter)
                 imwrite(write_path, image[:, :, 0])
+                counter+= 1
 
     def _inject_summary(self, tag, feed_dict, step):
         summaries = self.sess.run(self.summary_ops[tag], feed_dict)
